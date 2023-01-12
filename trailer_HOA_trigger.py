@@ -7,7 +7,16 @@ import openai
 import requests
 
 """
-This script will
+This script will trigger an email to a receipient of your choice with a random reason for having your Travel Trailer
+on your own property since HOA's love to flex.
+
+Reqired env vars:
+
+OPENAI_API_KEY
+MAILGUN_API_KEY
+MAILGUN_DOMAIN
+MAILGUN_RECEIPIENT
+MAILGUN_SENDER
 """
 
 
@@ -21,7 +30,7 @@ class EmailQuery:
         self.mg_api_key = os.getenv("MAILGUN_API_KEY")
         self.mg_domain = os.getenv("MAILGUN_DOMAIN")
         self.mail_receipient = os.getenv("MAILGUN_RECEIPIENT")
-        self.from_email = os.getenv("MAILGUN_FROM_EMAIL")
+        self.mg_sender = os.getenv("MAILGUN_SENDER")
         self.reasons = ["maintenance of roof", "preparing for camping trip", "fixing slide problem", "electrical issue"]
 
     def emailQuery(self):
@@ -58,7 +67,7 @@ class EmailQuery:
         # The recipient of the email
         to = self.mail_receipient
         # The sender of the email
-        from_email = self.from_email
+        from_email = self.mg_sender
         # The subject of the email
         subject = 'Hello, from OpenAI'
         # The body of the email
