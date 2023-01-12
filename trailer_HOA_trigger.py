@@ -3,8 +3,12 @@
 import os
 import sys
 import random
-import requests
 import openai
+import requests
+
+"""
+This script will
+"""
 
 
 class EmailQuery:
@@ -15,6 +19,9 @@ class EmailQuery:
     def __init__(self):
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.mg_api_key = os.getenv("MAILGUN_API_KEY")
+        self.mg_domain = os.getenv("MAILGUN_DOMAIN")
+        self.mail_receipient = os.getenv("MAILGUN_RECEIPIENT")
+        self.from_email = os.getenv("MAILGUN_FROM_EMAIL")
         self.reasons = ["maintenance of roof", "preparing for camping trip", "fixing slide problem", "electrical issue"]
 
     def emailQuery(self):
@@ -47,13 +54,13 @@ class EmailQuery:
 
     def sendEmail(self, answer=None):
         # Your Mailgun domain
-        domain = 'mg.badgerops.net'
+        domain = self.mg_domain
         # The recipient of the email
-        to = 'sol@badgerops.net'
+        to = self.mail_receipient
         # The sender of the email
-        from_email = 'chatgpt@badgerops.net'
+        from_email = self.from_email
         # The subject of the email
-        subject = 'Hello, World!'
+        subject = 'Hello, from OpenAI'
         # The body of the email
         text = answer
         # The data to send in the POST request to the Mailgun API
